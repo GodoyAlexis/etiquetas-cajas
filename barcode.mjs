@@ -52,3 +52,16 @@ export function createLabelNumbers(start, count) {
   return Array.from({ length: quantity }, (_, index) => String(first + BigInt(index)).padStart(width, "0"));
 }
 
+export function normalizeLabelSize(width, length) {
+  const supportedWidths = [29, 38, 50, 62];
+  const normalizedWidth = Number(width);
+  const normalizedLength = Number(length);
+  if (!supportedWidths.includes(normalizedWidth)) {
+    throw new Error("Elegí un ancho de rollo válido: 29, 38, 50 o 62 mm.");
+  }
+  if (!Number.isFinite(normalizedLength) || normalizedLength < 20 || normalizedLength > 100) {
+    throw new Error("El largo de la etiqueta debe estar entre 20 y 100 mm.");
+  }
+  return { width: normalizedWidth, length: normalizedLength };
+}
+
