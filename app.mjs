@@ -1,4 +1,4 @@
-import { createLabelNumbers, encodeCode128 } from "./barcode.mjs";
+import { createLabelNumbers, encodeCode128, normalizeLabelSize } from "./barcode.mjs";
 
 const form = document.querySelector("#labelForm");
 const startInput = document.querySelector("#startNumber");
@@ -11,6 +11,11 @@ const previewCount = document.querySelector("#previewCount");
 const printCount = document.querySelector("#printCount");
 const rangeText = document.querySelector("#rangeText");
 const moreLabels = document.querySelector("#moreLabels");
+const rollWidthInput = document.querySelector("#rollWidth");
+const labelLengthInput = document.querySelector("#labelLength");
+const pageSizeStyle = document.createElement("style");
+pageSizeStyle.id = "printPageSize";
+document.head.append(pageSizeStyle);
 
 function makeBarcode(number) {
   const { modules } = encodeCode128(number);
@@ -54,6 +59,7 @@ function render() {
   errorMessage.hidden = true;
   errorMessage.textContent = "";
   try {
+    const { width, length } = normalizeLabelSize(rollWidthInput.value, labelLengthInput.value);
     const numbers = createLabelNumbers(startInput.value.trim(), countInput.value);
     const fragment = document.createDocumentFragment();
     numbers.slice(0, 6).forEach((number) => fragment.append(makeLabel(number, "preview-label")));
@@ -62,6 +68,9 @@ function render() {
     const printFragment = document.createDocumentFragment();
     numbers.forEach((number) => printFragment.append(makeLabel(number, "print-label")));
     printArea.replaceChildren(printFragment);
+    printArea.style.setProperty("--label-width", `${width}mm`);
+    printArea.style.setProperty("--label-length", `${length}mm`);
+    pageSizeStyle.textContent = `@media print { @page { size: ${width}mm ${length}mm; margin: 0; } }`;
 
     const count = numbers.length;
     const noun = count === 1 ? "etiqueta" : "etiquetas";
@@ -71,6 +80,7 @@ function render() {
     rangeInput.value = String(Math.max(1, Math.min(100, count)));
     moreLabels.hidden = count <= 6;
     moreLabels.textContent = count > 6 ? `+ ${count - 6} etiquetas en la impresión` : "";
+    return true;
   } catch (error) {
     preview.replaceChildren();
     printArea.replaceChildren();
@@ -80,6 +90,7 @@ function render() {
     errorMessage.textContent = error.message;
     errorMessage.hidden = false;
     moreLabels.hidden = true;
+    return false;
   }
 }
 
@@ -90,7 +101,12 @@ form.addEventListener("submit", (event) => {
 
 countInput.addEventListener("input", () => {
   if (countInput.value !== "") rangeInput.value = String(Math.max(1, Math.min(100, Number(countInput.value))));
+  render();
 });
+
+startInput.addEventListener("input", render);
+rollWidthInput.addEventListener("change", render);
+labelLengthInput.addEventListener("input", render);
 
 rangeInput.addEventListener("input", () => {
   countInput.value = rangeInput.value;
@@ -98,7 +114,7 @@ rangeInput.addEventListener("input", () => {
 });
 
 document.querySelector("#printButton").addEventListener("click", () => {
-  if (printArea.childElementCount > 0) window.print();
+  if (render() && printArea.childElementCount > 0) window.print();
 });
 
 render();
