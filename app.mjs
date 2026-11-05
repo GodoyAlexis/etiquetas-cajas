@@ -8,7 +8,7 @@ const preview = document.querySelector("#labelPreview");
 const printArea = document.querySelector("#printArea");
 const errorMessage = document.querySelector("#formError");
 const previewCount = document.querySelector("#previewCount");
-const printCount = document.querySelector("#printCount");
+const printLabelText = document.querySelector("#printLabelText");
 const rangeText = document.querySelector("#rangeText");
 const moreLabels = document.querySelector("#moreLabels");
 const rollWidthInput = document.querySelector("#rollWidth");
@@ -75,7 +75,7 @@ function render() {
     const count = numbers.length;
     const noun = count === 1 ? "etiqueta" : "etiquetas";
     previewCount.textContent = `${count} ${noun}`;
-    printCount.textContent = String(count);
+    printLabelText.textContent = `Imprimir ${count} ${noun}`;
     rangeText.textContent = `${numbers[0]} — ${numbers.at(-1)}`;
     rangeInput.value = String(Math.max(1, Math.min(100, count)));
     moreLabels.hidden = count <= 6;
@@ -85,7 +85,7 @@ function render() {
     preview.replaceChildren();
     printArea.replaceChildren();
     previewCount.textContent = "Revisá los datos";
-    printCount.textContent = "0";
+    printLabelText.textContent = "No hay etiquetas para imprimir";
     rangeText.textContent = "Sin etiquetas para imprimir";
     errorMessage.textContent = error.message;
     errorMessage.hidden = false;
