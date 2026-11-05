@@ -23,7 +23,7 @@
         <div class="eyebrow"><span class="eyebrow-line"></span> IDENTIFICACIÓN DE DEPÓSITO</div>
         <h1 id="page-title">Cada caja,<br /><span>en su lugar.</span></h1>
         <p class="intro-copy">Numerá tus cajas y prepará etiquetas listas para imprimir y escanear.</p>
-        <div class="printer-note"><span class="printer-icon" aria-hidden="true">▤</span><span><strong>Brother QL-800</strong><br />Optimizada para rollos continuos de 62 mm</span></div>
+        <div class="printer-note"><span class="printer-icon" aria-hidden="true">▤</span><span><strong>Brother QL-800</strong><br />Compatible con rollos DK de 29 a 62 mm</span></div>
       </section>
 
       <section class="workspace" aria-label="Generador de etiquetas">
@@ -35,6 +35,11 @@
           <label for="startNumber">Primera caja</label>
           <div class="input-wrap"><span class="input-prefix">#</span><input id="startNumber" name="startNumber" inputmode="numeric" autocomplete="off" value="0001" maxlength="18" aria-describedby="startHint" /></div>
           <p class="field-hint" id="startHint">Conservamos los ceros iniciales. Por ejemplo, 0001.</p>
+          <div class="media-fields">
+            <div><label for="rollWidth">Ancho del rollo</label><div class="input-wrap"><select id="rollWidth" name="rollWidth"><option value="29">29 mm</option><option value="38">38 mm</option><option value="50">50 mm</option><option value="62" selected>62 mm</option></select></div></div>
+            <div><label for="labelLength">Largo de etiqueta</label><div class="input-wrap"><input id="labelLength" name="labelLength" type="number" min="20" max="100" value="29" /><span class="input-suffix">mm</span></div></div>
+          </div>
+          <p class="field-hint media-hint">Si tu rollo es continuo, podés elegir el largo de cada etiqueta.</p>
           <label for="labelCount">Cantidad de etiquetas</label>
           <div class="input-wrap quantity-wrap"><input id="labelCount" name="labelCount" type="number" min="1" max="500" value="24" /><span class="input-suffix">etiquetas</span></div>
           <div class="range-row"><span>1</span><input id="countRange" type="range" min="1" max="100" value="24" aria-label="Cantidad de etiquetas, de 1 a 100" /><span>100+</span></div>
@@ -56,7 +61,7 @@
         </section>
       </section>
 
-      <section class="print-help" aria-label="Consejo de impresión"><div class="help-symbol">i</div><div><strong>Antes de imprimir</strong><p>Elegí el rollo continuo de 62 mm en las preferencias de impresión y dejá la escala en 100 %. La impresora se selecciona en el diálogo de impresión del sistema.</p></div><span class="help-arrow" aria-hidden="true">↗</span></section>
+      <section class="print-help" aria-label="Consejo de impresión"><div class="help-symbol">i</div><div><strong>Antes de imprimir</strong><p>Elegí el mismo ancho de rollo que configuraste. En el diálogo, usá escala 100 % y una sola copia. “Copias” duplica toda la tanda; la cantidad de etiquetas se controla acá.</p></div><span class="help-arrow" aria-hidden="true">↗</span></section>
       <footer class="page-footer"><span>DEPO <span class="footer-separator">/</span> HERRAMIENTAS DE OPERACIÓN</span><span>Una etiqueta clara ahorra una búsqueda.</span></footer>
     </main>
 
