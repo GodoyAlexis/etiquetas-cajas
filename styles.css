@@ -128,7 +128,8 @@ input[type=range] { width: 100%; accent-color: var(--green); }
 
 @media print {
   @page { size: 62mm 29mm; margin: 0; }
-  html,body { width: var(--label-width, 62mm); margin: 0 !important; padding: 0 !important; background: #fff; }
+  html,body { width: var(--label-width, 62mm); min-width: 0 !important; margin: 0 !important; padding: 0 !important; background: #fff; }
+  body > :not(.print-area) { display: none !important; }
   body * { visibility: hidden !important; }
   .print-area,.print-area * { visibility: visible !important; }
   .print-area { display: block !important; position: absolute; top: 0; left: 0; width: var(--label-width, 62mm); }
