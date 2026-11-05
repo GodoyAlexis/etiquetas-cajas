@@ -68,8 +68,8 @@ function render() {
     const printFragment = document.createDocumentFragment();
     numbers.forEach((number) => printFragment.append(makeLabel(number, "print-label")));
     printArea.replaceChildren(printFragment);
-    printArea.style.setProperty("--label-width", `${width}mm`);
-    printArea.style.setProperty("--label-length", `${length}mm`);
+    document.documentElement.style.setProperty("--label-width", `${width}mm`);
+    document.documentElement.style.setProperty("--label-length", `${length}mm`);
     pageSizeStyle.textContent = `@media print { @page { size: ${width}mm ${length}mm; margin: 0; } }`;
 
     const count = numbers.length;
