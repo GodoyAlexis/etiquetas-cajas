@@ -18,7 +18,7 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); background: var(--canvas); min-width: 320px; }
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 .topbar { height: 72px; padding: 0 max(30px, calc((100vw - 1120px) / 2)); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e6eae7; background: rgba(255,255,255,.78); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font: 800 21px Manrope, sans-serif; letter-spacing: -1.1px; color: var(--ink); text-decoration: none; }
 .brand-dot { color: var(--orange); }
@@ -55,6 +55,10 @@ label { display: block; margin: 0 0 8px; font-size: 12px; font-weight: 600; }
 .input-wrap:focus-within { border-color: #628872; box-shadow: 0 0 0 3px #1e523b15; }
 .input-prefix { padding: 0 0 0 14px; color: #8a948e; font-size: 14px; }
 .input-wrap input { width: 100%; padding: 0 14px; border: 0; outline: 0; color: var(--ink); background: transparent; font: 600 16px Manrope,sans-serif; letter-spacing: .4px; }
+.input-wrap select { width: 100%; height: 44px; padding: 0 12px; border: 0; outline: 0; color: var(--ink); background: transparent; font: 600 14px Manrope,sans-serif; }
+.media-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 9px; }
+.media-fields label { font-size: 11px; }
+.media-hint { margin-top: 0; }
 .field-hint { min-height: 26px; margin: 8px 0 19px; color: #879189; font-size: 10px; line-height: 1.4; }
 .quantity-wrap { margin-bottom: 11px; }
 .quantity-wrap input { font-size: 15px; }
@@ -124,14 +128,14 @@ input[type=range] { width: 100%; accent-color: var(--green); }
 
 @media print {
   @page { size: 62mm 29mm; margin: 0; }
-  html,body { width: 62mm; margin: 0 !important; padding: 0 !important; background: #fff; }
+  html,body { width: var(--label-width, 62mm); margin: 0 !important; padding: 0 !important; background: #fff; }
   body * { visibility: hidden !important; }
   .print-area,.print-area * { visibility: visible !important; }
-  .print-area { display: block !important; position: absolute; top: 0; left: 0; width: 62mm; }
-  .print-label { width: 62mm; height: 29mm; padding: 2mm 5mm 1mm; display: flex; align-items: center; flex-direction: column; justify-content: center; overflow: hidden; page-break-after: always; break-after: page; color: #111; background: white; }
-  .print-label:last-child { page-break-after: auto; break-after: auto; }
+  .print-area { display: block !important; position: absolute; top: 0; left: 0; width: var(--label-width, 62mm); }
+  .print-label { width: var(--label-width, 62mm); height: var(--label-length, 29mm); padding: 2mm 5mm 1mm; display: flex; align-items: center; flex-direction: column; justify-content: center; overflow: hidden; break-after: page; color: #111; background: white; }
+  .print-label:last-child { break-after: auto; }
   .print-label .label-brand { margin: 0 0 .3mm; align-self: flex-end; font: 700 5pt Arial,sans-serif; letter-spacing: .5mm; }
-  .print-label svg { width: 50mm; height: 15mm; overflow: visible; }
+  .print-label svg { width: calc(var(--label-width, 62mm) - 12mm); height: 15mm; overflow: visible; }
   .print-label .label-number { margin: 0; font: 700 13pt Arial,sans-serif; letter-spacing: 1.2mm; }
 }
 
