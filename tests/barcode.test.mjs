@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { encodeCode128, createLabelNumbers } from "../barcode.mjs";
+import { encodeCode128, createLabelNumbers, normalizeLabelSize } from "../barcode.mjs";
 
 test("encodes digit pairs compactly in Code 128 C", () => {
   const symbol = encodeCode128("12345");
@@ -25,5 +25,15 @@ test("creates a zero-padded run of consecutive box labels", () => {
 
 test("limits print runs to 500 labels", () => {
   assert.throws(() => createLabelNumbers("1", 501), /500 etiquetas/);
+});
+
+test("accepts supported Brother DK widths and custom label lengths", () => {
+  assert.deepEqual(normalizeLabelSize("62", "29"), { width: 62, length: 29 });
+  assert.deepEqual(normalizeLabelSize(29, 45), { width: 29, length: 45 });
+});
+
+test("rejects unsupported roll widths and out-of-range lengths", () => {
+  assert.throws(() => normalizeLabelSize(30, 29), /ancho de rollo válido/);
+  assert.throws(() => normalizeLabelSize(62, 19), /entre 20 y 100 mm/);
 });
 
