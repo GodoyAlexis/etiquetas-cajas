@@ -133,10 +133,9 @@ input[type=range] { width: 100%; accent-color: var(--green); }
   body * { visibility: hidden !important; }
   .print-area,.print-area * { visibility: visible !important; }
   .print-area { display: block !important; position: absolute; top: 0; left: 0; width: var(--label-width, 62mm); }
-  .print-label { width: var(--label-width, 62mm); height: var(--label-length, 29mm); padding: 2mm 5mm 1mm; display: flex; align-items: center; flex-direction: column; justify-content: center; overflow: hidden; break-after: page; color: #111; background: white; }
+  .print-label { width: var(--label-width, 62mm); height: var(--label-length, 29mm); padding: 1mm 3mm; display: flex; align-items: center; flex-direction: column; justify-content: center; overflow: hidden; break-after: page; color: #111; background: white; }
   .print-label:last-child { break-after: auto; }
-  .print-label .label-brand { margin: 0 0 .3mm; align-self: flex-end; font: 700 5pt Arial,sans-serif; letter-spacing: .5mm; }
-  .print-label svg { width: calc(var(--label-width, 62mm) - 12mm); height: 15mm; overflow: visible; }
-  .print-label .label-number { margin: 0; font: 700 13pt Arial,sans-serif; letter-spacing: 1.2mm; }
+  .print-label svg { width: calc(var(--label-width, 62mm) - 6mm); height: 16mm; overflow: visible; }
+  .print-label .label-number { margin: 0; font: 700 15pt Arial,sans-serif; letter-spacing: 1.2mm; }
 }
 
