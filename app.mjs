@@ -44,14 +44,11 @@ function makeBarcode(number) {
 function makeLabel(number, className) {
   const label = document.createElement("article");
   label.className = className;
-  const brand = document.createElement("span");
-  brand.className = "label-brand";
-  brand.textContent = "DEPO";
   const barcode = makeBarcode(number);
   const digits = document.createElement("strong");
   digits.className = "label-number";
   digits.textContent = number;
-  label.append(brand, barcode, digits);
+  label.append(barcode, digits);
   return label;
 }
 
